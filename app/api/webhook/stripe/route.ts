@@ -1,8 +1,8 @@
-import stripe from 'stripe'
+import { headers } from 'next/headers'
 import { NextResponse } from 'next/server'
 import { createOrder } from '@/lib/actions/order.actions'
 
-
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY!)
 export async function POST(request: Request) {
   const body = await request.text()
 
@@ -38,9 +38,3 @@ export async function POST(request: Request) {
 
   return new Response('', { status: 200 })
 }
-
-export const config = {
-    api: {
-      bodyParser: false,
-    },
-  };
